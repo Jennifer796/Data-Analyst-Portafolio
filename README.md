@@ -1,5 +1,5 @@
 <h1 align="center">Hi 👋, me llamo Jennifer Ramirez </h1>
-<h3 align="center">Soy una trabadora apasionada para analizar datos</h3>
+<h3 align="center">Soy una trabadora apasionada para analizar datos, cuento con una sólida experiencia en consultoría empresarial y en camino de completar una maestría en   MBA con análisis de datos. En los últimos años, he aplicado con éxito mis habilidades analíticas para impulsar el desempeño empresarial como consultor y he estado dirigiendo una empresa familiar donde aprovecho los nuevos conocimientos adquiridos en mi maestría para mejorar diversos aspectos de las operaciones. datos</h3>
 
 - 🔭Estoy trabajando en *Análisis de ingresos para la toma de decisión*
   
