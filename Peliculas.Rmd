@@ -1,0 +1,88 @@
+# Instalar las librerías necesarias
+install.packages("rvest")
+install.packages("dplyr")
+install.packages("stringr")
+install.packages("tidyverse")
+
+# Cargar las librerías
+library(rvest)
+library(dplyr)
+library(stringr)
+library(tidyverse)
+
+ url <- 'https://es.wikipedia.org/wiki/Anexo:Pel%C3%ADculas_con_las_mayores_recaudaciones'
+ webpage <- read_html(url)
+
+# Extraer el primer párrafo
+first_paragraph <- webpage %>%
+     html_node('p') %>%
+     html_text()
+
+# Mostrar el primer párrafo
+ print(first_paragraph)
+
+# URL de la página
+ url <- "https://es.wikipedia.org/wiki/Anexo:Pel%C3%ADculas_con_las_mayores_recaudaciones"
+ html <- read_html(url)
+ 
+# Extraer la tabla de información (wikitable)
+ wikitable <- html %>% html_node(".wikitable") %>% html_table()
+ 
+# Mostrar la tabla de información
+ print(wikitable)
+
+# Limpiar el primer párrafo
+ first_paragraph_clean <- str_trim(first_paragraph)
+ 
+# Mostrar el párrafo limpio
+ print(first_paragraph_clean)
+
+# Limpiar y estructurar la tabla de información
+ wikitable_clean <- wikitable %>%
+     rename(Attribute = 1, Value = 2) %>%
+     filter(!is.na(Attribute))
+
+# Mostrar la tabla de información limpia
+ print(wikitable_clean) 
+
+# Agregar una columna ficticia de datos numéricos para el análisis
+ set.seed(123) # Para reproducibilidad
+ wikitable_clean$NumericValue <- sample(1:100, nrow(wikitable_clean), replace
+                                      = TRUE)
+# Mostrar la tabla con la nueva columna
+ print(wikitable_clean)
+
+# Calcular medidas de resumen estadístico
+ summary_stats <- wikitable_clean %>%
+     summarise(
+         Mean = mean(NumericValue),
+         Median = median(NumericValue),
+         SD = sd(NumericValue),
+         Min = min(NumericValue),
+         Max = max(NumericValue)
+     ) 
+         
+# Mostrar las medidas de resumen estadístico
+ print(summary_stats) 
+
+# Crear un listado de recaudacion con las primeras 6 peliculas de dataframe
+ tabla_6mejorespeliculas <- data.frame(
+     Pelicula = c("Avatar", "Avengers: Endgame", "Avatar: The Way of Water", "Titanic", "Star Wars: Episodio VII - El despertar de la Fuerza", "Avengers: Infinity War"),
+     Recaudacion = c("&&&&&2923706026.&&&", "&&&&&2799439100.&&&", "&&&&&2320250281.&&&", "&&&&&2264743305.&&&", "&&&&&2071310218.&&&", "&&&&&2052415039.&&&")
+ )
+ 
+# Quitar los símbolos &&&&&
+ tabla_6mejorespeliculas$Recaudacion <- gsub("&", "", tabla_6mejorespeliculas $Recaudacion)
+ 
+# Mostrar el dataframe resultante
+ print(tabla_6mejorespeliculas)
+
+# Guardar el primer párrafo en un archivo de texto
+ writeLines(first_paragraph_clean, 'primer_parrafoPeliculas.txt') 
+ 
+# Guardar la tabla de información en un archivo CSV
+ write.csv(wikitable_clean, 'infobox_R.csv', row.names = FALSE)
+
+# Guardar las medidas de resumen estadístico en un archivo CSV
+ write.csv(summary_stats, 'summary_stats.csv', row.names = FALSE)
+
